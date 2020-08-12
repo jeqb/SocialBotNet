@@ -1,0 +1,40 @@
+High Level
+    network of nodes controlled by master.
+    Observer Design Pattern?
+    Subject = has the commands
+    Observers = Bot account
+
+    Wikipedia: https://en.wikipedia.org/wiki/Observer_pattern#Python
+    class Observable:
+    def __init__(self):
+        self._observers = []
+    
+    def register_observer(self, observer):
+        self._observers.append(observer)
+    
+    def notify_observers(self, *args, **kwargs):
+        for observer in self._observers:
+            observer.notify(self, *args, **kwargs)
+
+    class Observer:
+        def __init__(self, observable):
+            observable.register_observer(self)
+        
+        def notify(self, observable, *args, **kwargs):
+            print('Got', args, kwargs, 'From', observable)
+
+
+        subject = Observable()
+        observer = Observer(subject)
+        subject.notify_observers('test')
+
+Requirements
+    - need programatic access to email
+        - http://www.fakemailgenerator.com
+            - get email and domain from html source
+            - can check inbox by putting email in the url
+            - poll url, grab twitter verify code from html source
+
+    - need programatic access to twitter
+        - selenium in headless mode?
+        - maybe run the bots in a docker container with Chrome w/ headless mode installed on it?
