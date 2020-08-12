@@ -38,3 +38,9 @@ Requirements
     - need programatic access to twitter
         - selenium in headless mode?
         - maybe run the bots in a docker container with Chrome w/ headless mode installed on it?
+
+
+Other Ideas:
+    - find a Neural Network of some kind that generates human faces.
+        - use for profile pictures
+        - would be super cool
