@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from fake_useragent import UserAgent
+from bs4 import BeautifulSoup
 
 class EmailUtility:
     """
@@ -10,6 +11,16 @@ class EmailUtility:
         self.driver_path = kwargs['driver_path']
 
         self.base_url = kwargs['base_url']
+
+
+    def get_email_address(self) -> str:
+        # interface-like behavior
+        pass
+
+
+    def has_mail(self, soup: BeautifulSoup) -> bool:
+        # interface-like behavior
+        pass
 
 
     def get_fake_useragent(self):
@@ -51,8 +62,3 @@ class EmailUtility:
         """
 
         self.driver.quit()
-
-
-    def get_email_address(self) -> str:
-        # this is an interface?
-        pass

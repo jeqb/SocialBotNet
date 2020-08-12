@@ -12,7 +12,40 @@ class FakeMailGeneratorApi(EmailUtility):
         EmailUtility.__init__(self, **kwargs)
 
 
-    def get_email_url(self, email_address: str) -> str:
+    def get_email_address(self) -> str:
+        """
+        Reach out to the website, and grab an email address from the
+        html element
+        """
+
+        html_source = self._get_website_html()
+
+        email_address = self._get_email_from_string(html_source)
+
+        return email_address
+
+
+    def has_mail(self, email_address: str) -> bool:
+        """
+        Based on an email address, determine whether or not the inbox is empty
+        """
+
+        email_inbox_url = self._get_email_url(email_address)
+
+        inbox_soup = self._get_inbox_html(email_inbox_url)
+
+        # Given a nice bowl of beautiful soup, find the "Waiting for e-mails..."
+        # string which would indicate that the inbox is empty. Currently it
+        # is embedded in a <p> tag
+        check_me = inbox_soup.find_all("p", string="Waiting for e-mails...")
+
+        if len(check_me) == 0:
+            return True
+        else:
+            return False
+
+
+    def _get_email_url(self, email_address: str) -> str:
         """
         The url of the inbox is based on the email address. Given an email
         address, generate the url to access the inbox
@@ -25,7 +58,7 @@ class FakeMailGeneratorApi(EmailUtility):
         return inbox_url
 
 
-    def get_inbox_html(self, url: str) -> str:
+    def _get_inbox_html(self, url: str) -> str:
         """
         Once the inbox url is determined, call the endpoint and grab the HTML
         for further analysis.
@@ -39,23 +72,8 @@ class FakeMailGeneratorApi(EmailUtility):
 
         return soup
 
-
-    def is_inbox_empty(self, soup: BeautifulSoup) -> bool:
-        """
-        Given a nice bowl of beautiful soup, find the "Waiting for e-mails..."
-        string which would indicate that the inbox is empty. Currently it
-        is embedded in a <p> tag
-        """
-
-        check_me = soup.find_all("p", string="Waiting for e-mails...")
-
-        if len(check_me) == 0:
-            return False
-        else:
-            return True
-
     
-    def get_website_html(self) -> str:
+    def _get_website_html(self) -> str:
         """
         call the website and get the html source containing the
         email address
@@ -74,7 +92,7 @@ class FakeMailGeneratorApi(EmailUtility):
         return html_source
 
 
-    def get_email_from_string(self, html_source: str) -> str:
+    def _get_email_from_string(self, html_source: str) -> str:
         """
         Given the HTML of fake mail generator, extract the email address
         from the source
@@ -97,18 +115,5 @@ class FakeMailGeneratorApi(EmailUtility):
         end = substring.find(r'">Copy<')
 
         email = substring[:end]
-
-        return email
-
-
-    def get_email_address(self) -> str:
-        """
-        Reach out to the website, and grab an email address from the
-        html element
-        """
-
-        html_source = self.get_website_html()
-
-        email = self.get_email_from_string(html_source)
 
         return email
