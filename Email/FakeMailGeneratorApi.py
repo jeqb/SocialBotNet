@@ -1,4 +1,6 @@
 import re
+from bs4 import BeautifulSoup
+import requests
 from .EmailUtility import EmailUtility
 
 class FakeMailGeneratorApi(EmailUtility):
@@ -8,6 +10,49 @@ class FakeMailGeneratorApi(EmailUtility):
 
     def __init__(self, **kwargs):
         EmailUtility.__init__(self, **kwargs)
+
+
+    def get_email_url(self, email_address: str) -> str:
+        """
+        The url of the inbox is based on the email address. Given an email
+        address, generate the url to access the inbox
+        """
+
+        username, domain = email_address.split('@')
+
+        inbox_url = self.base_url + '/inbox/' + domain + '/' + username + '/'
+
+        return inbox_url
+
+
+    def get_inbox_html(self, url: str) -> str:
+        """
+        Once the inbox url is determined, call the endpoint and grab the HTML
+        for further analysis.
+
+        use beautiful soup + requests when we don't need selenium as selenium is slowish
+        """
+
+        html_content = requests.get(url).text
+
+        soup = BeautifulSoup(html_content, "lxml")
+
+        return soup
+
+
+    def is_inbox_empty(self, soup: BeautifulSoup) -> bool:
+        """
+        Given a nice bowl of beautiful soup, find the "Waiting for e-mails..."
+        string which would indicate that the inbox is empty. Currently it
+        is embedded in a <p> tag
+        """
+
+        check_me = soup.find_all("p", string="Waiting for e-mails...")
+
+        if len(check_me) == 0:
+            return False
+        else:
+            return True
 
     
     def get_website_html(self) -> str:

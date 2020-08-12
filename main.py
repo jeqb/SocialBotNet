@@ -4,7 +4,7 @@ from dotenv import load_dotenv; load_dotenv()
 
 from Websites import TwitterApi
 
-print(datetime.now())
+print('start: ', datetime.now())
 
 # twitter API testing
 PATH = os.environ.get('DRIVER_PATH')
@@ -29,15 +29,18 @@ config = {
 
 email_client = FakeMailGeneratorApi(**config)
 
-# for the button copy thingy
-button_full_xpath = '/html/body/div[1]/div[1]/div[1]/div[3]/div/button'
+# email = email_client.get_email_address()
 
-# from the string thingy
-paragraph_full_xpath = '/html/body/div[1]/div[1]/div[5]/div/p/strong/span'
+email = 'Pagel1929@superrito.com'
 
-email = email_client.get_email_address()
-# email = email_client.get_website_html()
+email_inbox_url = email_client.get_email_url(email)
 
-print(email)
+inbox_html = email_client.get_inbox_html(email_inbox_url)
 
-print(datetime.now())
+empty_indication = email_client.is_inbox_empty(inbox_html)
+
+print('email address: ', email)
+print('inbox url: ', email_inbox_url)
+print('is inbox empty: ', empty_indication)
+
+print('finish: ', datetime.now())

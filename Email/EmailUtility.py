@@ -54,4 +54,5 @@ class EmailUtility:
 
 
     def get_email_address(self) -> str:
+        # this is an interface?
         pass

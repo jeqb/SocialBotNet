@@ -2,3 +2,6 @@ selenium
 python-dotenv
 random-username
 fake-useragent
+requests
+beautifulsoup4
+lxml
