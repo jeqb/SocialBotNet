@@ -20,7 +20,7 @@ class EmailClient:
 
         self.email_address = email
 
-        return self
+        return email
 
 
     def has_mail(self) -> bool:

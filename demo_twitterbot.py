@@ -16,3 +16,4 @@ twitter_bot_config.update({'email_client': email_client})
 twitter_bot = TwitterBot(**twitter_bot_config)
 # twitter bot stuff
 
+creds = twitter_bot.create_account()
