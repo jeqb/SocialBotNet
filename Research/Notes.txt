@@ -28,6 +28,7 @@ High Level
         observer = Observer(subject)
         subject.notify_observers('test')
 
+
 Requirements
     - need programatic access to email
         - http://www.fakemailgenerator.com
@@ -38,6 +39,16 @@ Requirements
     - need programatic access to twitter
         - selenium in headless mode?
         - maybe run the bots in a docker container with Chrome w/ headless mode installed on it?
+        - Twitter Account Creation Process
+            - username
+            - email
+            - date of birth
+            - check inbox for verification code
+            - paste code in
+            - generate password
+            - paste password in
+            - click "Skip for now"
+        - FIGURE OUT HOW TO DEFEAT CAPCHA!!!
 
 
 Other Ideas:
