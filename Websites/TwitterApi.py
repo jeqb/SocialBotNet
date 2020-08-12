@@ -10,7 +10,7 @@ class TwitterApi(WebsiteApi):
         WebsiteApi.__init__(self, **kwargs)
 
 
-    def get_month_name(self, date: datetime) -> int:
+    def _get_month_name(self, date: datetime) -> int:
         """
         given a datetime object, return the month as an int
         """
@@ -27,7 +27,7 @@ class TwitterApi(WebsiteApi):
         birthday -> datetime(2020, 1, 25)
         """
 
-        month_name = self.get_month_name(birthday)
+        month_name = self._get_month_name(birthday)
         day = birthday.day
         year = birthday.year
         
