@@ -1,16 +1,6 @@
 from datetime import datetime
 import random
 from random import randrange
-from random_username.generate import generate_username as create_username
-
-
-def generate_username() -> str:
-    """
-    Make a random username
-    """
-    username = create_username(1)[0]
-
-    return username
 
 
 def generate_birthday() -> datetime:

@@ -1,5 +1,6 @@
 from Websites import TwitterApi
 from Security import WebsiteCredentials
+from Linguistics import generate_username
 import Security.Utilities as Utilities
 
 class TwitterBot:
@@ -22,7 +23,7 @@ class TwitterBot:
         also be stored in an SQLit3 database
         """
 
-        username = self.utils.generate_username()
+        username = generate_username()
         password = self.utils.generate_password()
         email = self.email_client.procure_email_address()
         birthday = self.utils.generate_birthday()
