@@ -55,3 +55,13 @@ Other Ideas:
     - find a Neural Network of some kind that generates human faces.
         - use for profile pictures
         - would be super cool
+
+
+    - Linguistics
+        - package that contains:
+            - username generator:
+                - need lists of nouns, adjectives, verbs
+            - sentence refraser to take a sentence and refrase it to look organic
+                - Cloudmersive.APIClient.Python.NLP
+            - typo inserter
+                - insert typos into sentences to make it look organic
